@@ -22,62 +22,76 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#include "robject.h"
+#include "rint.h"
 
-static void robject_initialize(RObject obj)
+struct RIntPrivate_s {
+	int value;
+};
+
+static void rint_initialize(RInt rint)
 {
-	puts("robject_initialize");
+	RIntPrivate priv = rint->priv;
+	priv->value      = 0;
 }
 
-void robject_constructor(RObject obj)
+void rint_constructor(RObject obj)
 {
-	puts("robject_constructor");
-	robject_initialize(obj);
+	RInt self = (RInt) obj;
+ 	self->priv   = calloc(sizeof(struct RIntPrivate_s), 1);
+
+	rint_initialize(self);
+	robject_constructor(obj);
 }
 
-static void robject_finalize(RObject obj)
+static void rint_finalize(RInt rint)
 {
-	puts("robject_finalize");
+	RIntPrivate priv = rint->priv;
 }
 
-void robject_destructor(RObject obj)
+void rint_destructor(RObject obj)
 {
-	robject_finalize(obj);
+	RInt self = (RInt) obj;
+
+	rint_finalize(self);
+ 	if (self->priv) {
+ 		free(self->priv);
+		self->priv = NULL;
+ 	}
+	robject_destructor(obj);
 }
 
-RObject robject_create(RClass rclass)
+RClass rint_class()
 {
-	RObject obj = NULL;
+	static struct RClass_s rintclass = {0, };
 
-	assert(rclass);
-	assert(rclass->obj_size);
-	obj = (RObject) calloc(rclass->obj_size, 1);
-
-	assert(rclass);
-	obj->klass = rclass;
-
-	rclass->constructor(obj);
-
-	return obj;
-}
-
-void robject_destroy(RObject* obj_pointer)
-{
-	puts("robject_destroy");
-
-	if (obj_pointer) {
-		if (*obj_pointer) {
-			RObject obj = *obj_pointer;
-			assert(obj);
-
-			RClass klass = obj->klass;
-			assert(klass);
-
-			puts("Calling destructor");
-			assert(klass->destructor);
-			klass->destructor(obj);
-			free(obj);
-			*obj_pointer = NULL;
-		}
+	if (rintclass.obj_size == 0) {
+		rintclass.constructor = rint_constructor;
+		rintclass.destructor  = rint_destructor;
+		rintclass.obj_size    = sizeof(struct RInt_s);
 	}
+
+	return &rintclass;
+}
+
+RInt rint_create(int value)
+{
+	RInt self = (RInt) robject_create(rint_class());
+
+	RIntPrivate priv = self->priv;
+	priv->value      = value;
+
+	return self;
+}
+
+int rint_getvalue(RInt self)
+{
+	RIntPrivate priv = self->priv;
+	return priv->value;
+}
+
+void rint_destroy(RInt* rint_pointer)
+{
+	RObject* obj_pointer = (RObject*) rint_pointer;
+
+	robject_destroy(obj_pointer);
 }

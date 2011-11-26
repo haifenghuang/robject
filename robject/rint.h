@@ -18,66 +18,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <assert.h>
-#include <stddef.h>
-#include <stdlib.h>
+#ifndef ROBJECT_RINT_H
+#define ROBJECT_RINT_H
 
 #include "robject.h"
 
-static void robject_initialize(RObject obj)
-{
-	puts("robject_initialize");
-}
+typedef struct RInt_s* RInt;
+typedef struct RIntPrivate_s* RIntPrivate;
+struct RInt_s {
+	struct RObject_s base;
+	RIntPrivate      priv;
+};
 
-void robject_constructor(RObject obj)
-{
-	puts("robject_constructor");
-	robject_initialize(obj);
-}
+// Macro start
+void rint_destructor(RObject obj);
+void rint_constructor(RObject obj);
+// Macro end
 
-static void robject_finalize(RObject obj)
-{
-	puts("robject_finalize");
-}
+RClass rint_class();
 
-void robject_destructor(RObject obj)
-{
-	robject_finalize(obj);
-}
+RInt rint_create(int value);
 
-RObject robject_create(RClass rclass)
-{
-	RObject obj = NULL;
+int rint_getvalue(RInt self);
 
-	assert(rclass);
-	assert(rclass->obj_size);
-	obj = (RObject) calloc(rclass->obj_size, 1);
+void rint_destroy(RInt* obj_pointer);
 
-	assert(rclass);
-	obj->klass = rclass;
-
-	rclass->constructor(obj);
-
-	return obj;
-}
-
-void robject_destroy(RObject* obj_pointer)
-{
-	puts("robject_destroy");
-
-	if (obj_pointer) {
-		if (*obj_pointer) {
-			RObject obj = *obj_pointer;
-			assert(obj);
-
-			RClass klass = obj->klass;
-			assert(klass);
-
-			puts("Calling destructor");
-			assert(klass->destructor);
-			klass->destructor(obj);
-			free(obj);
-			*obj_pointer = NULL;
-		}
-	}
-}
+#endif /* ROBJECT_H */

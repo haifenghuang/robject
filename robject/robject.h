@@ -21,23 +21,28 @@
 #ifndef ROBJECT_H
 #define ROBJECT_H
 
-typedef struct RObject_s*       RObject;
-typedef struct RClass_s*        RClass;
-typedef struct RObjectCParam_s* RObjectCParam;
+typedef struct RObject_s* RObject;
+typedef struct RClass_s*  RClass;
 
-typedef void (*robject_constructor)(RObject self);
+typedef void (*robject_constructor_fp)(RObject self);
+typedef void (*robject_destructor_fp)(RObject self);
 
 struct RClass_s {
-	robject_constructor constructor;
+	robject_constructor_fp constructor;
+	robject_destructor_fp  destructor;
+	size_t                 obj_size;
 };
 
 struct RObject_s {
 	RClass klass;
 };
 
-RClass  robject_class();
+// Macro start
+void robject_destructor(RObject obj);
+void robject_constructor(RObject obj);
+// Macro end
 
-RObject robject_create(RClass rclass, void* param);
+RObject robject_create(RClass rclass);
 
 void robject_destroy(RObject* obj_pointer);
 

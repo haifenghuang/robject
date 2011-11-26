@@ -21,18 +21,30 @@
 #include "rtest.hpp"
 
 extern "C" {
-#include "robject.h"
+#include "rint.h"
+#include "rstring.h"
 }
 
-RTEST_TEST(RObjectUnitTest, createZObjectNullClass) {
-    RObject obj = robject_create(NULL, NULL);
-    RTEST_ASSERT_TRUE(NULL == obj);
+RTEST_TEST(RObjectUnitTest, createRInt) {
+    const int value = 5;
+
+    RInt self = rint_create(value);
+    RTEST_ASSERT_TRUE(NULL != self);
+
+    RTEST_ASSERT_EQ(value, rint_getvalue(self));
+    rint_destroy(&self);
+    RTEST_ASSERT_TRUE(NULL == self);
 }
 
-RTEST_TEST(RObjectUnitTest, createZObject) {
-    RObject obj = robject_create(robject_class(), NULL);
-    RTEST_ASSERT_TRUE(NULL != obj);
-    robject_destroy(&obj);
+RTEST_TEST(RObjectUnitTest, createRString) {
+    const int value = 5;
+
+    RString self = rstring_create("Hello");
+    RTEST_ASSERT_TRUE(NULL != self);
+
+    RTEST_ASSERT_FALSE(strcmp("Hello", rstring_cstr(self)));
+    rstring_destroy(&self);
+    RTEST_ASSERT_TRUE(NULL == self);
 }
 
 int main(int argc, char** argv)
