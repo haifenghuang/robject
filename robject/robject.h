@@ -46,11 +46,19 @@ RObject robject_create(RClass rclass);
 
 void robject_destroy(RObject* obj_pointer);
 
-#define ROBJECT_H_BEGIN(Self, self)	\
-ROBJECT_H_CONSTRUCTOR(Self, self)	\
-ROBJECT_H_DESTRUCTOR(Self, self)	\
-ROBJECT_H_CLASS(Self, self)		\
-ROBJECT_H_DESTROY(Self, self)
+#define ROBJECT_H_BEGIN(Self, self)		\
+typedef struct Self##_s* Self;			\
+typedef struct Self##Private_s* Self##Private;	\
+						\
+ROBJECT_H_CONSTRUCTOR(Self, self)		\
+ROBJECT_H_DESTRUCTOR(Self, self)		\
+ROBJECT_H_CLASS(Self, self)			\
+ROBJECT_H_DESTROY(Self, self)			\
+						\
+struct Self##_s {				\
+	struct RObject_s base;			\
+	Self##Private    priv;			\
+};
 
 #define ROBJECT_H_CONSTRUCTOR(Self, self)  void self##_constructor(RObject obj);
 
@@ -103,5 +111,14 @@ RClass self##_class()						\
 								\
 	return &klass;						\
 }
+
+#define ROBJECT_C(Self, self)			\
+static void self##_initialize(Self self);	\
+static void self##_finalize(Self self);		\
+						\
+ROBJECT_C_CONSTRUCTOR(Self, self)		\
+ROBJECT_C_DESTRUCTOR(Self, self)		\
+ROBJECT_C_CLASS(Self, self)			\
+ROBJECT_C_DESTROY(Self, self)
 
 #endif /* ROBJECT_H */

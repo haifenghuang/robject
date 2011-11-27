@@ -23,13 +23,6 @@
 
 #include "robject.h"
 
-typedef struct RString_s* RString;
-typedef struct RStringPrivate_s* RStringPrivate;
-struct RString_s {
-	struct RObject_s base;
-	RStringPrivate   priv;
-};
-
 ROBJECT_H_BEGIN(RString, rstring)
 
 RString rstring_create(const char* str);

@@ -28,22 +28,18 @@ struct RIntPrivate_s {
 	int value;
 };
 
+ROBJECT_C(RInt, rint)
+
 static void rint_initialize(RInt rint)
 {
 	RIntPrivate priv = rint->priv;
 	priv->value      = 0;
 }
 
-ROBJECT_C_CONSTRUCTOR(RInt, rint)
-
 static void rint_finalize(RInt rint)
 {
 	RIntPrivate priv = rint->priv;
 }
-
-ROBJECT_C_DESTRUCTOR(RInt, rint)
-
-ROBJECT_C_CLASS(RInt, rint)
 
 RInt rint_create(int value)
 {
@@ -60,5 +56,3 @@ int rint_getvalue(RInt self)
 	RIntPrivate priv = self->priv;
 	return priv->value;
 }
-
-ROBJECT_C_DESTROY(RInt, rint)

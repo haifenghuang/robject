@@ -30,6 +30,8 @@ struct RStringPrivate_s {
 	size_t len;
 };
 
+ROBJECT_C(RString, rstring)
+
 static void rstring_initialize(RString rstring)
 {
 	RStringPrivate priv = rstring->priv;
@@ -45,11 +47,6 @@ static void rstring_finalize(RString rstring)
 		free(priv->str);
 	}
 }
-
-ROBJECT_C_CONSTRUCTOR(RString, rstring)
-ROBJECT_C_DESTRUCTOR(RString, rstring)
-ROBJECT_C_CLASS(RString, rstring)
-ROBJECT_C_DESTROY(RString, rstring)
 
 RString rstring_create(const char* str)
 {
@@ -68,4 +65,3 @@ const char* rstring_cstr(RString self)
 
 	return priv->str;
 }
-

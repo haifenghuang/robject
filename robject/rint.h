@@ -23,13 +23,6 @@
 
 #include "robject.h"
 
-typedef struct RInt_s* RInt;
-typedef struct RIntPrivate_s* RIntPrivate;
-struct RInt_s {
-	struct RObject_s base;
-	RIntPrivate      priv;
-};
-
 ROBJECT_H_BEGIN(RInt, rint)
 
 RInt rint_create(int value);
