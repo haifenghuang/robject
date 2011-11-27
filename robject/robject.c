@@ -35,18 +35,15 @@ void robject_class_constructor(RObjectClass klass)
 
 static void robject_initialize(RObject self)
 {
-	puts("robject_initialize");
 }
 
 void robject_constructor(RObject self)
 {
-	puts("robject_constructor");
 	robject_initialize(self);
 }
 
 static void robject_finalize(RObject self)
 {
-	puts("robject_finalize");
 }
 
 void robject_destructor(RObject self)
@@ -72,8 +69,6 @@ RObject robject_create(RObjectClass klass)
 
 void robject_destroy(RObject* obj_pointer)
 {
-	puts("robject_destroy");
-
 	if (obj_pointer) {
 		if (*obj_pointer) {
 			RObject obj = *obj_pointer;
@@ -82,7 +77,6 @@ void robject_destroy(RObject* obj_pointer)
 			RObjectClass klass = obj->klass;
 			assert(klass);
 
-			puts("Calling destructor");
 			assert(klass->destructor);
 			klass->destructor(obj);
 			free(obj);
