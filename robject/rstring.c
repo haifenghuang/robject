@@ -48,17 +48,7 @@ static void rstring_finalize(RString rstring)
 	}
 }
 
-void rstring_destructor(RObject obj)
-{
-	RString self = (RString) obj;
-
-	rstring_finalize(self);
- 	if (self->priv) {
- 		free(self->priv);
-		self->priv = NULL;
- 	}
-	robject_destructor(obj);
-}
+ROBJECT_C_DESTRUCTOR(RString, rstring)
 
 ROBJECT_C_CLASS(RString, rstring)
 

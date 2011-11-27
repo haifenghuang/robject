@@ -58,6 +58,21 @@ void self##_constructor(RObject obj)					\
 	robject_constructor(obj);					\
 }
 
+#define ROBJECT_H_DESTRUCTOR(Self, self) void self##_destructor(RObject obj);
+
+#define ROBJECT_C_DESTRUCTOR(Self, self)	\
+void self##_destructor(RObject obj)		\
+{						\
+	Self self = (Self) obj;			\
+						\
+	self##_finalize(self);			\
+	if (self->priv) {			\
+		free(self->priv);		\
+		self->priv = NULL;		\
+	}					\
+	robject_destructor(obj);		\
+}
+
 #define ROBJECT_H_DESTROY(Self, self)	void self##_destroy(Self* self_pointer);
 
 #define ROBJECT_C_DESTROY(Self, self)				\

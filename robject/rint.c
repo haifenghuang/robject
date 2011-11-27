@@ -41,17 +41,7 @@ static void rint_finalize(RInt rint)
 	RIntPrivate priv = rint->priv;
 }
 
-void rint_destructor(RObject obj)
-{
-	RInt self = (RInt) obj;
-
-	rint_finalize(self);
- 	if (self->priv) {
- 		free(self->priv);
-		self->priv = NULL;
- 	}
-	robject_destructor(obj);
-}
+ROBJECT_C_DESTRUCTOR(RInt, rint)
 
 ROBJECT_C_CLASS(RInt, rint)
 

@@ -31,8 +31,8 @@ struct RInt_s {
 };
 
 // Macro start
-void rint_destructor(RObject obj);
 ROBJECT_H_CONSTRUCTOR(RInt, rint)
+ROBJECT_H_DESTRUCTOR(RInt, rint)
 // Macro end
 
 ROBJECT_H_CLASS(RInt, rint)
