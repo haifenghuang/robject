@@ -44,18 +44,18 @@ Car car_create()
 	return self;
 }
 
-static const char* car_internal_cstr(Car self)
-{
-	return "car";
-}
-
 const char* car_cstr(Car self)
 {
 	CarClass klass = (CarClass)(((RObject) self)->klass);
-	return klass->cstr(self);
+
+	if (klass->cstr != NULL) {
+		return klass->cstr(self);
+	} else {
+		return "car";
+	}
 }
 
 void car_class_initialize(CarClass klass) {
-	klass->cstr = car_internal_cstr;
+	/* Nothing to override */
 }
 
