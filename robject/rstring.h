@@ -30,18 +30,10 @@ struct RString_s {
 	RStringPrivate   priv;
 };
 
-// Macro start
-ROBJECT_H_CONSTRUCTOR(RString, rstring)
-ROBJECT_H_DESTRUCTOR(RString, rstring)
-
-// Macro end
-
-ROBJECT_H_CLASS(RString, rstring)
+ROBJECT_H_BEGIN(RString, rstring)
 
 RString rstring_create(const char* str);
 
 const char* rstring_cstr(RString self);
-
-ROBJECT_H_DESTROY(RString, rstring)
 
 #endif /* ROBJECT_H */

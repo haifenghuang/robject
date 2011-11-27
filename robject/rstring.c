@@ -37,8 +37,6 @@ static void rstring_initialize(RString rstring)
 	priv->len = 0;
 }
 
-ROBJECT_C_CONSTRUCTOR(RString, rstring)
-
 static void rstring_finalize(RString rstring)
 {
 	RStringPrivate priv = rstring->priv;
@@ -48,9 +46,10 @@ static void rstring_finalize(RString rstring)
 	}
 }
 
+ROBJECT_C_CONSTRUCTOR(RString, rstring)
 ROBJECT_C_DESTRUCTOR(RString, rstring)
-
 ROBJECT_C_CLASS(RString, rstring)
+ROBJECT_C_DESTROY(RString, rstring)
 
 RString rstring_create(const char* str)
 {
@@ -70,4 +69,3 @@ const char* rstring_cstr(RString self)
 	return priv->str;
 }
 
-ROBJECT_C_DESTROY(RString, rstring)

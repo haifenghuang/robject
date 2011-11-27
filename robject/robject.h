@@ -46,6 +46,12 @@ RObject robject_create(RClass rclass);
 
 void robject_destroy(RObject* obj_pointer);
 
+#define ROBJECT_H_BEGIN(Self, self)	\
+ROBJECT_H_CONSTRUCTOR(Self, self)	\
+ROBJECT_H_DESTRUCTOR(Self, self)	\
+ROBJECT_H_CLASS(Self, self)		\
+ROBJECT_H_DESTROY(Self, self)
+
 #define ROBJECT_H_CONSTRUCTOR(Self, self)  void self##_constructor(RObject obj);
 
 #define ROBJECT_C_CONSTRUCTOR(Self, self)				\

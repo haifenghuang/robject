@@ -30,17 +30,11 @@ struct RInt_s {
 	RIntPrivate      priv;
 };
 
-// Macro start
-ROBJECT_H_CONSTRUCTOR(RInt, rint)
-ROBJECT_H_DESTRUCTOR(RInt, rint)
-// Macro end
-
-ROBJECT_H_CLASS(RInt, rint)
+ROBJECT_H_BEGIN(RInt, rint)
 
 RInt rint_create(int value);
 
 int rint_getvalue(RInt self);
 
-ROBJECT_H_DESTROY(RInt, rint)
 
 #endif /* ROBJECT_H */
