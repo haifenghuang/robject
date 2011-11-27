@@ -26,7 +26,7 @@ extern "C" {
 #include "volvo.h"
 }
 
-RTEST_TEST(RObjectUnitTest, createRInt) {
+RTEST_TEST(RObjectUnitTest, simpleClass) {
     const int value = 5;
 
     RInt self = rint_create(value);
@@ -37,7 +37,7 @@ RTEST_TEST(RObjectUnitTest, createRInt) {
     RTEST_ASSERT_TRUE(NULL == self);
 }
 
-RTEST_TEST(RObjectUnitTest, createRString) {
+RTEST_TEST(RObjectUnitTest, constructorAndDestructor) {
     const int value = 5;
 
     RString self = rstring_create("Hello");
@@ -48,14 +48,14 @@ RTEST_TEST(RObjectUnitTest, createRString) {
     RTEST_ASSERT_TRUE(NULL == self);
 }
 
-RTEST_TEST(RObjectUnitTest, createCar) {
+RTEST_TEST(RObjectUnitTest, abstractClass) {
     Car car = car_create();
     RTEST_ASSERT_FALSE(strcmp("car", car_cstr(car)));
     car_destroy(&car);
     RTEST_ASSERT_TRUE(car == NULL);
 }
 
-RTEST_TEST(RObjectUnitTest, createVolvo) {
+RTEST_TEST(RObjectUnitTest, Inheritance) {
     Car car = volvo_create();
     RTEST_ASSERT_FALSE(strcmp("volvo", car_cstr(car)));
     car_destroy(&car);
