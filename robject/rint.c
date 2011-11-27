@@ -89,9 +89,4 @@ int rint_getvalue(RInt self)
 	return priv->value;
 }
 
-void rint_destroy(RInt* rint_pointer)
-{
-	RObject* obj_pointer = (RObject*) rint_pointer;
-
-	robject_destroy(obj_pointer);
-}
+ROBJECT_C_DESTROY(RInt, rint)

@@ -98,9 +98,4 @@ const char* rstring_cstr(RString self)
 	return priv->str;
 }
 
-void rstring_destroy(RString* rstring_pointer)
-{
-	RObject* obj_pointer = (RObject*) rstring_pointer;
-
-	robject_destroy(obj_pointer);
-}
+ROBJECT_C_DESTROY(RString, rstring)

@@ -41,6 +41,6 @@ RString rstring_create(const char* str);
 
 const char* rstring_cstr(RString self);
 
-void rstring_destroy(RString* obj_postringer);
+ROBJECT_H_DESTROY(RString, rstring)
 
 #endif /* ROBJECT_H */

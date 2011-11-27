@@ -41,6 +41,6 @@ RInt rint_create(int value);
 
 int rint_getvalue(RInt self);
 
-void rint_destroy(RInt* obj_pointer);
+ROBJECT_H_DESTROY(RInt, rint)
 
 #endif /* ROBJECT_H */

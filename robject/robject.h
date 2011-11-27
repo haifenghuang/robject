@@ -46,4 +46,13 @@ RObject robject_create(RClass rclass);
 
 void robject_destroy(RObject* obj_pointer);
 
+#define ROBJECT_H_DESTROY(Self, self)	void self##_destroy(Self* self_pointer);
+
+#define ROBJECT_C_DESTROY(Self, self)				\
+void self##_destroy(Self* self_pointer)				\
+{   								\
+	RObject* obj_pointer = (RObject*) self_pointer;		\
+	robject_destroy(obj_pointer);				\
+}
+
 #endif /* ROBJECT_H */
