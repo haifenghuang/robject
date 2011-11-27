@@ -18,17 +18,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef ROBJECT_RINT_H
-#define ROBJECT_RINT_H
+#include <assert.h>
+#include <stddef.h>
+#include <stdlib.h>
 
-#include "robject.h"
+#include "car.h"
 
-ROBJECT_H_BEGIN(RInt, rint, RObject, robject)
-ROBJECT_H_END
+struct CarPrivate_s {
+};
 
-RInt rint_create(int value);
+ROBJECT_C(Car, car, RObject, robject)
 
-int rint_getvalue(RInt self);
+static void car_initialize(Car car)
+{
+}
 
+static void car_finalize(Car car)
+{
+}
 
-#endif /* ROBJECT_H */
+Car car_create()
+{
+	Car self = (Car) robject_create(car_class());
+
+	return self;
+}
+
+static const char* car_internal_cstr(Car self)
+{
+	return "car";
+}
+
+const char* car_cstr(Car self)
+{
+	CarClass klass = (CarClass)(((RObject) self)->klass);
+	return klass->cstr(self);
+}
+
+void car_class_initialize(CarClass klass) {
+	klass->cstr = car_internal_cstr;
+}
+

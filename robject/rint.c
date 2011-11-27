@@ -28,7 +28,7 @@ struct RIntPrivate_s {
 	int value;
 };
 
-ROBJECT_C(RInt, rint)
+ROBJECT_C(RInt, rint, RObject, robject)
 
 static void rint_initialize(RInt rint)
 {
@@ -55,4 +55,7 @@ int rint_getvalue(RInt self)
 {
 	RIntPrivate priv = self->priv;
 	return priv->value;
+}
+
+void rint_class_initialize(RIntClass klass) {
 }

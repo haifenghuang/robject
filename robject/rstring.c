@@ -30,7 +30,7 @@ struct RStringPrivate_s {
 	size_t len;
 };
 
-ROBJECT_C(RString, rstring)
+ROBJECT_C(RString, rstring, RObject, robject)
 
 static void rstring_initialize(RString rstring)
 {
@@ -64,4 +64,7 @@ const char* rstring_cstr(RString self)
 	RStringPrivate priv = self->priv;
 
 	return priv->str;
+}
+
+static void rstring_class_initialize(RStringClass klass) {
 }

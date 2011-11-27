@@ -18,17 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef ROBJECT_RINT_H
-#define ROBJECT_RINT_H
+#ifndef ROBJECT_CAR_H
+#define ROBJECT_CAR_H
 
 #include "robject.h"
 
-ROBJECT_H_BEGIN(RInt, rint, RObject, robject)
+ROBJECT_H_BEGIN(Car, car, RObject, robject)
+	const char* (*cstr)(Car self);
 ROBJECT_H_END
 
-RInt rint_create(int value);
+Car car_create();
 
-int rint_getvalue(RInt self);
+const char* car_cstr(Car self);
 
-
-#endif /* ROBJECT_H */
+#endif /* ROBJECT_CAR_H */

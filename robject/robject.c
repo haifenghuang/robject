@@ -24,6 +24,15 @@
 
 #include "robject.h"
 
+static void robject_class_initialize(RObjectClass klass)
+{
+}
+
+void robject_class_constructor(RObjectClass klass)
+{
+	robject_class_initialize(klass);
+}
+
 static void robject_initialize(RObject obj)
 {
 	puts("robject_initialize");
@@ -45,18 +54,18 @@ void robject_destructor(RObject obj)
 	robject_finalize(obj);
 }
 
-RObject robject_create(RClass rclass)
+RObject robject_create(RObjectClass klass)
 {
 	RObject obj = NULL;
 
-	assert(rclass);
-	assert(rclass->obj_size);
-	obj = (RObject) calloc(rclass->obj_size, 1);
+	assert(klass);
+	assert(klass->obj_size);
+	obj = (RObject) calloc(klass->obj_size, 1);
 
-	assert(rclass);
-	obj->klass = rclass;
+	assert(klass);
+	obj->klass = klass;
 
-	rclass->constructor(obj);
+	klass->constructor(obj);
 
 	return obj;
 }
@@ -70,7 +79,7 @@ void robject_destroy(RObject* obj_pointer)
 			RObject obj = *obj_pointer;
 			assert(obj);
 
-			RClass klass = obj->klass;
+			RObjectClass klass = obj->klass;
 			assert(klass);
 
 			puts("Calling destructor");

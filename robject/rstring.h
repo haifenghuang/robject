@@ -23,7 +23,8 @@
 
 #include "robject.h"
 
-ROBJECT_H_BEGIN(RString, rstring)
+ROBJECT_H_BEGIN(RString, rstring, RObject, robject)
+ROBJECT_H_END
 
 RString rstring_create(const char* str);
 

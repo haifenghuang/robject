@@ -23,6 +23,7 @@
 extern "C" {
 #include "rint.h"
 #include "rstring.h"
+#include "volvo.h"
 }
 
 RTEST_TEST(RObjectUnitTest, createRInt) {
@@ -45,6 +46,20 @@ RTEST_TEST(RObjectUnitTest, createRString) {
     RTEST_ASSERT_FALSE(strcmp("Hello", rstring_cstr(self)));
     rstring_destroy(&self);
     RTEST_ASSERT_TRUE(NULL == self);
+}
+
+RTEST_TEST(RObjectUnitTest, createCar) {
+    Car car = car_create();
+    RTEST_ASSERT_FALSE(strcmp("car", car_cstr(car)));
+    car_destroy(&car);
+    RTEST_ASSERT_TRUE(car == NULL);
+}
+
+RTEST_TEST(RObjectUnitTest, createVolvo) {
+    Car car = volvo_create();
+    RTEST_ASSERT_FALSE(strcmp("volvo", car_cstr(car)));
+    car_destroy(&car);
+    RTEST_ASSERT_TRUE(car == NULL);
 }
 
 int main(int argc, char** argv)

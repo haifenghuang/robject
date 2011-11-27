@@ -18,17 +18,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef ROBJECT_RINT_H
-#define ROBJECT_RINT_H
+#include <assert.h>
+#include <stddef.h>
+#include <stdlib.h>
 
-#include "robject.h"
+#include "volvo.h"
 
-ROBJECT_H_BEGIN(RInt, rint, RObject, robject)
-ROBJECT_H_END
+struct VolvoPrivate_s {
+};
 
-RInt rint_create(int value);
+ROBJECT_C(Volvo, volvo, Car, car)
 
-int rint_getvalue(RInt self);
+static void volvo_initialize(Volvo volvo)
+{
+}
 
+static void volvo_finalize(Volvo volvo)
+{
+}
 
-#endif /* ROBJECT_H */
+Car volvo_create()
+{
+	Volvo self = (Volvo) robject_create(volvo_class());
+
+	return (Car) self;
+}
+
+static const char* volvo_cstr(Car self)
+{
+	return "volvo";
+}
+
+void volvo_class_initialize(VolvoClass klass) {
+	((CarClass) klass)->cstr = volvo_cstr;
+}
