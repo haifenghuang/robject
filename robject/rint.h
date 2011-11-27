@@ -35,7 +35,7 @@ void rint_destructor(RObject obj);
 void rint_constructor(RObject obj);
 // Macro end
 
-RClass rint_class();
+ROBJECT_H_CLASS(RInt, rint)
 
 RInt rint_create(int value);
 

@@ -67,18 +67,7 @@ void rstring_destructor(RObject obj)
 	robject_destructor(obj);
 }
 
-RClass rstring_class()
-{
-	static struct RClass_s rstringclass = {0, };
-
-	if (rstringclass.obj_size == 0) {
-		rstringclass.constructor = rstring_constructor;
-		rstringclass.destructor  = rstring_destructor;
-		rstringclass.obj_size    = sizeof(struct RString_s);
-	}
-
-	return &rstringclass;
-}
+ROBJECT_C_CLASS(RString, rstring)
 
 RString rstring_create(const char* str)
 {

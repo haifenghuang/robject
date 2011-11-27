@@ -35,7 +35,7 @@ void rstring_destructor(RObject obj);
 void rstring_constructor(RObject obj);
 // Macro end
 
-RClass rstring_class();
+ROBJECT_H_CLASS(RString, rstring)
 
 RString rstring_create(const char* str);
 

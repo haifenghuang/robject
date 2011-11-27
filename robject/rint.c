@@ -60,18 +60,7 @@ void rint_destructor(RObject obj)
 	robject_destructor(obj);
 }
 
-RClass rint_class()
-{
-	static struct RClass_s rintclass = {0, };
-
-	if (rintclass.obj_size == 0) {
-		rintclass.constructor = rint_constructor;
-		rintclass.destructor  = rint_destructor;
-		rintclass.obj_size    = sizeof(struct RInt_s);
-	}
-
-	return &rintclass;
-}
+ROBJECT_C_CLASS(RInt, rint)
 
 RInt rint_create(int value)
 {

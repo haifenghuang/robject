@@ -55,4 +55,20 @@ void self##_destroy(Self* self_pointer)				\
 	robject_destroy(obj_pointer);				\
 }
 
+#define ROBJECT_H_CLASS(Self, self) RClass self##_class();
+
+#define ROBJECT_C_CLASS(Self, self)				\
+RClass self##_class()						\
+{								\
+	static struct RClass_s klass = {0, };			\
+								\
+	if (klass.obj_size == 0) {				\
+		klass.constructor = self##_constructor;		\
+		klass.destructor  = self##_destructor;		\
+		klass.obj_size    = sizeof(struct Self##_s);	\
+	}							\
+								\
+	return &klass;						\
+}
+
 #endif /* ROBJECT_H */
