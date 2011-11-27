@@ -30,15 +30,15 @@ struct RIntPrivate_s {
 
 ROBJECT_C(RInt, rint, RObject, robject)
 
-static void rint_initialize(RInt rint)
+static void rint_initialize(RInt self)
 {
-	RIntPrivate priv = rint->priv;
+	RIntPrivate priv = self->priv;
 	priv->value      = 0;
 }
 
-static void rint_finalize(RInt rint)
+static void rint_finalize(RInt self)
 {
-	RIntPrivate priv = rint->priv;
+	RIntPrivate priv = self->priv;
 }
 
 RInt rint_create(int value)

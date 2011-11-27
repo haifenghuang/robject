@@ -33,25 +33,25 @@ void robject_class_constructor(RObjectClass klass)
 	robject_class_initialize(klass);
 }
 
-static void robject_initialize(RObject obj)
+static void robject_initialize(RObject self)
 {
 	puts("robject_initialize");
 }
 
-void robject_constructor(RObject obj)
+void robject_constructor(RObject self)
 {
 	puts("robject_constructor");
-	robject_initialize(obj);
+	robject_initialize(self);
 }
 
-static void robject_finalize(RObject obj)
+static void robject_finalize(RObject self)
 {
 	puts("robject_finalize");
 }
 
-void robject_destructor(RObject obj)
+void robject_destructor(RObject self)
 {
-	robject_finalize(obj);
+	robject_finalize(self);
 }
 
 RObject robject_create(RObjectClass klass)

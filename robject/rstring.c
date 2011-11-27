@@ -32,16 +32,16 @@ struct RStringPrivate_s {
 
 ROBJECT_C(RString, rstring, RObject, robject)
 
-static void rstring_initialize(RString rstring)
+static void rstring_initialize(RString self)
 {
-	RStringPrivate priv = rstring->priv;
+	RStringPrivate priv = self->priv;
 	priv->str = NULL;
 	priv->len = 0;
 }
 
-static void rstring_finalize(RString rstring)
+static void rstring_finalize(RString self)
 {
-	RStringPrivate priv = rstring->priv;
+	RStringPrivate priv = self->priv;
 
 	if (priv->str) {
 		free(priv->str);

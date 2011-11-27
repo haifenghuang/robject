@@ -29,11 +29,11 @@ struct CarPrivate_s {
 
 ROBJECT_C(Car, car, RObject, robject)
 
-static void car_initialize(Car car)
+static void car_initialize(Car self)
 {
 }
 
-static void car_finalize(Car car)
+static void car_finalize(Car self)
 {
 }
 
