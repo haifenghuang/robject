@@ -38,7 +38,6 @@ static void rint_initialize(RInt self)
 
 static void rint_finalize(RInt self)
 {
-	RIntPrivate priv = self->priv;
 }
 
 RInt rint_create(int value)
