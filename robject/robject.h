@@ -46,6 +46,18 @@ RObject robject_create(RClass rclass);
 
 void robject_destroy(RObject* obj_pointer);
 
+#define ROBJECT_H_CONSTRUCTOR(Self, self)  void self##_constructor(RObject obj);
+
+#define ROBJECT_C_CONSTRUCTOR(Self, self)				\
+void self##_constructor(RObject obj)					\
+{									\
+	Self self = (Self) obj;						\
+	self->priv   = calloc(sizeof(struct Self##Private_s), 1);	\
+									\
+	self##_initialize(self);					\
+	robject_constructor(obj);					\
+}
+
 #define ROBJECT_H_DESTROY(Self, self)	void self##_destroy(Self* self_pointer);
 
 #define ROBJECT_C_DESTROY(Self, self)				\

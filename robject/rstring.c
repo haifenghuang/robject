@@ -37,14 +37,7 @@ static void rstring_initialize(RString rstring)
 	priv->len = 0;
 }
 
-void rstring_constructor(RObject obj)
-{
-	RString self = (RString) obj;
- 	self->priv   = calloc(sizeof(struct RStringPrivate_s), 1);
-
-	rstring_initialize(self);
-	robject_constructor(obj);
-}
+ROBJECT_C_CONSTRUCTOR(RString, rstring)
 
 static void rstring_finalize(RString rstring)
 {

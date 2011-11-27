@@ -34,14 +34,7 @@ static void rint_initialize(RInt rint)
 	priv->value      = 0;
 }
 
-void rint_constructor(RObject obj)
-{
-	RInt self = (RInt) obj;
- 	self->priv   = calloc(sizeof(struct RIntPrivate_s), 1);
-
-	rint_initialize(self);
-	robject_constructor(obj);
-}
+ROBJECT_C_CONSTRUCTOR(RInt, rint)
 
 static void rint_finalize(RInt rint)
 {

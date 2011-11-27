@@ -32,7 +32,8 @@ struct RString_s {
 
 // Macro start
 void rstring_destructor(RObject obj);
-void rstring_constructor(RObject obj);
+ROBJECT_H_CONSTRUCTOR(RString, rstring)
+
 // Macro end
 
 ROBJECT_H_CLASS(RString, rstring)
